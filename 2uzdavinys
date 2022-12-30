@@ -1,0 +1,47 @@
+# Sukurti programą, kuri:
+# • Turėtų klasę Darbuotojas
+# • Darbuotojas turėtų savybes: vardas, valandos_ikainis, dirba_nuo
+# • Turėtų privatų metodą kuris paskaičiuotų, kiek darbuotojas nudirbo dienų nuo įvestos dienos (dirba_nuo) iki 
+# šiandien (turint omeny, kad darbuotojas dirba 7 dienas per savaitę)
+# • Turėtų metodą paskaiciuoti_atlyginima, kuris panaudodamas aukščiau aprašytu metodu, paskaičiuotų bendrą 
+# atlyginimą (turint omeny, kad darbuotojas dirba 8 valandas per dieną)
+# • Turėtų klasę NormalusDarbuotojas, kuri pakeistų Darbuotojo klasę taip, kad ji skaičiuotų atlyginimą, dirbant 
+# darbuotojui 5 dienas per savaitę
+# • Sukurti norimą Darbuotojo objektą
+# • Sukurti norimą NormalusDarbuotojas objektą
+# • Su abiem objektais paleisti funkciją paskaiciuoti_atlyginima
+
+import datetime
+
+class Darbuotojas:
+    def __init__(self,vardas,valandos_ikainis,dirba_nuo):
+        self.vardas=vardas
+        self.valandos_ikainis=valandos_ikainis
+        self.dirba_nuo=dirba_nuo
+
+    def _dirbo_dienu(self):
+        dabar=datetime.datetime.now().year
+        dirbo_dienu=(dabar-self.dirba_nuo)*365
+        print("darbininkas dirbo:",dirbo_dienu,"dienas")
+        return dirbo_dienu
+    def paskaiciuoti_atlyginima(self):
+        atlyginimas=self._dirbo_dienu()*8*self.valandos_ikainis
+        print("darbininkas uzdirbo:",atlyginimas,'$')
+class NormalusDarbuotojas(Darbuotojas):
+    def paskaiciuoti_atlyginima(self):
+        darbo_dienos=(datetime.datetime.now().year-self.dirba_nuo)*251
+        print("normalus darbininkas dirbo:",darbo_dienos,'dienas')
+        atlyginimas=darbo_dienos*8*self.valandos_ikainis
+        print("normalus darbininkas uzdirbo:",atlyginimas,'$')
+darbininkas=Darbuotojas('Jonas',5,2021)
+normalus_darbininkas=NormalusDarbuotojas('Jonas',7,1995)
+darbininkas.paskaiciuoti_atlyginima()
+normalus_darbininkas.paskaiciuoti_atlyginima()
+
+#output
+darbininkas dirbo: 365 dienas
+darbininkas uzdirbo: 14600 $
+normalus darbininkas dirbo: 6777 dienas
+normalus darbininkas uzdirbo: 379512 $
+
+Process finished with exit code 0
